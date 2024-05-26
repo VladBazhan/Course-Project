@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Add Page";
+}
+@model ProjectCinema.Models.Film
+<link rel="stylesheet" href="/css/use.css">
+<div class="block">
+    <form asp-controller="Admin" asp-action="AddFilm" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input asp-for="Name" class="form-control" placeholder="Назва"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <textarea asp-for="Description" class="form-control" placeholder="Опис"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Price" class="form-control" placeholder="Ціна квитка" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Image" type="file" class="form-control" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Сеанси</label>
+            <div id="sessions-list"></div>
+            <button type="button" class="btn btn-secondary" onclick="addSession()">Додати сеанс</button>
+        </div>
+        <div class="submit">
+            <button type="submit" class="btn btn-primary">Створити</button>
+            <a class="text-button" asp-controller="Admin" asp-action="ManageFilms">Повернутися</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function addSession() {
+        const sessionList = document.getElementById('sessions-list');
+        const sessionCount = sessionList.children.length;
+        const sessionDiv = document.createElement('div');
+        sessionDiv.classList.add('form-group');
+        const label = document.createElement('label');
+        label.innerText = `Сеанс ${sessionCount + 1}`;
+        sessionDiv.appendChild(label);
+        const input = document.createElement('input');
+        input.name = `Sessions[${sessionCount}].Date`;
+        input.type = 'datetime-local';
+        input.classList.add('form-control');
+        sessionDiv.appendChild(input);
+        sessionList.appendChild(sessionDiv);
+    }
+</script>

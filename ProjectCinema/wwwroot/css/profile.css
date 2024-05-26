@@ -1,0 +1,11 @@
+﻿.box{
+    background-color: #221F1F;
+    padding: 20px;
+    border-radius: 4px;
+}
+.box h2{
+    text-align: center;
+}
+.form-group{
+    margin-bottom: 15px;
+}

@@ -1,0 +1,31 @@
+﻿.btn-primary{
+    border: none;
+    color: #ffffff;
+    background-color: #FF0000; 
+}
+.btn-primary:hover{
+    border: none;
+    color: #ffffff;
+    background-color: #870000; 
+}
+.text-button{
+    color: #ffffff;
+}
+.text-button:hover{
+    color: #838383;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #3c3c3c;
+    color: #ffffff;
+}
+select option {
+    background-color: #333;
+    color: white;
+}

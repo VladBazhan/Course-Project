@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Film>
+<link rel="stylesheet" href="/css/index.css">
+@if (!string.IsNullOrEmpty(TempData["UserNotification"] as string))
+{
+    <div class="alert alert-success" id="alert" role="alert">
+        @TempData["UserNotification"]
+    </div>
+}
+<div class="title">
+    <img class="image" src="~/lib/images/movie.webp" alt="Кінотеатр">
+    <div class="text">
+        <h1>Кінотеатр</h1>
+    </div>
+</div>
+<div class="films">
+    @foreach (var film in Model.OrderByDescending(a => a.Id))
+    {
+        <a asp-controller="Home" asp-action="BuyTickets" asp-route-Id="@film.Id" class="film-link">
+            <div class="block">
+                <img src="@film.Image" alt="@film.Name" width="100" />
+                <div class="film-details">
+                    <h2><strong>@film.Name</strong></h2>
+                    <p>@film.Description.Substring(0, 40)...</p>
+                </div>
+                <div class="details-link">Детальніше→</div>
+            </div>
+        </a>
+    }
+</div>
+<style>
+    .alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 16px;
+        opacity: 1;
+        transition: opacity 1s ease-out;
+    }
+
+    .alert-success {
+        background-color: #dff0d8;
+        color: #3c763d;
+        border: 1px solid #d6e9c6;
+    }
+</style>
+
+<script>
+    setTimeout(function () {
+        var alertElement = document.getElementById("alert");
+        if (alertElement) {
+            alertElement.style.opacity = "0";
+            setTimeout(function () {
+                alertElement.style.display = "none";
+            }, 1000);
+        }
+    }, 2000);
+</script>

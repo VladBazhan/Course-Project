@@ -1,0 +1,47 @@
+﻿.block {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    color: white;
+}
+
+.block img {
+    width: 250px;
+    height: 375px;
+    border-radius: 4%;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.film-details {
+    flex-grow: 1;
+    position: relative;
+}
+
+.buy-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.session-select {
+    background-color: transparent;
+    color: white;
+    width: 200px;
+    border: 1px solid white;
+}
+
+.session-select:focus, 
+.session-select:active {
+    color: white;
+    background-color: transparent;
+    outline: none;
+}
+
+.session-select option {
+    background-color: #333;
+    color: white;
+}

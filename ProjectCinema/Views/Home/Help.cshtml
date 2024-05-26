@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Help";
+}
+<link rel="stylesheet" href="/css/help.css">
+@model List<ModelHelp>
+<div class="container">
+    <h1>Начайстіші запитання</h1>
+    @if (Model.Count != 0)
+    {
+        foreach (var article in Model.OrderByDescending(a => a.Id))
+        {
+            <div class="box">
+                <h3>@article.Name</h3>
+                <p>@article.Description</p>
+            </div>
+        }
+    }
+    else
+    {
+        <h2>Немає статтей</h2>
+    }
+</div>

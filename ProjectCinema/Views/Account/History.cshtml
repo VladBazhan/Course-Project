@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ProjectCinema.Data
+@using ProjectCinema.Enums
+@inject ApplicationDbContext _context
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Tickets";
+}
+<link rel="stylesheet" href="/css/history.css">
+<link rel="stylesheet" asp-append-version="true" href="/css/shared-styles.css">
+@model List<Ticket>
+<div class="container">
+    <div id="menu" class="block">
+        <h2>Меню</h2>
+        <div class="nav-links">
+            <div class="nav-link">
+                <a class="btn button-style" asp-controller="Account" asp-action="Profile">Профіль</a>
+            </div>
+            <div class="nav-link">
+                <a class="btn button-style" asp-controller="Account" asp-action="ChangePassword">Змінити пароль</a>
+            </div>
+            <div class="nav-link">
+                <a class="btn button-style" asp-controller="Account" asp-action="History">Квитки</a>
+            </div>
+            @{
+                var user = await UserManager.GetUserAsync(User);
+                if (user.Role == Roles.Admin)
+                {
+                    <div class="nav-link">
+                        <a class="btn button-style" asp-controller="Admin" asp-action="ManageAccounts">Адмін панель</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="col">
+        <div class="box">
+            <div id="package">
+                <h2>Ваші квитки</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Назва фільму</th>
+                            <th>Дата сеансу</th>
+                            <th>Ціна</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.Count != 0)
+                            {
+                                foreach (var ticket in Model)
+                                {
+                                    if (UserManager.GetUserId(User) == ticket.SenderId)
+                                    {
+                                        <tr>
+                                            @{
+                                                <th>@ticket.FilmName</th>
+                                            }
+                                            <th>@{
+                                                    string[] time = ticket.Time.Split('T');
+                                                    <a>@time[0] @time[1]</a>
+                                                }
+                                            </th>
+                                            <th>@ticket.Price</th>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <tr><th>Не знайдено</th><th></th><th></th></tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

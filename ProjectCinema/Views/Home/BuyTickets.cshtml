@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Buy Tickets";
+}
+@model ProjectCinema.Models.ModelBuyTickets
+<link rel="stylesheet" href="/css/buyTickets.css">
+<div class="block">
+    <img src="@Model.Film.Image" alt="@Model.Film.Image" width="100" />
+    <div class="film-details">
+        <h2><strong>@Model.Film.Name</strong></h2>
+        <p>@Model.Film.Description</p>
+        <form asp-controller="Home" asp-action="BuyTickets" method="post">
+            <div class="form-group">
+                <label for="session">Виберіть сеанс:</label>
+                <select asp-for="Data" class="form-control session-select" id="session">
+                    @foreach (var session in Model.Film.sessions)
+                    {
+                        string[] time = session.Date.Split('T');
+                        <option value="@session.Date">@time[0] @time[1]</option>
+                    }
+                </select>
+            </div>
+            <input type="hidden" asp-for="Film.Id" value="@Model.Film.Id" />
+            <input type="hidden" asp-for="Film.Name" value="@Model.Film.Name" />
+            <input type="hidden" asp-for="Film.Price" value="@Model.Film.Price" />
+            <button type="submit" class="btn btn-primary buy-button">Купити</button>
+        </form>
+    </div>
+</div>
